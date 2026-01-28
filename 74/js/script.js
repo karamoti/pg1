@@ -1,13 +1,12 @@
 //大域変数
-//映画一覧配列、映画の情報がオブジェクトで入っている
+//映画リストの配列、映画の情報がオブジェクトで入っている
 let watchedMoviesList = [];
 
 document.getElementById("addWatchedMovieButton").addEventListener("click", function () {
     console.log("\n---\nボタンクリック確認");
 
-
     //エラーフラグ
-    let isError = false;
+    let isError = false; //trueに一度なるとこの関数は一旦強制終了
 
     // 入力欄のエラーメッセージエリアをリセット
     document.getElementById("titleError").innerHTML = "";
@@ -18,18 +17,20 @@ document.getElementById("addWatchedMovieButton").addEventListener("click", funct
 
     /*映画タイトル入力*/
     //映画タイトルの内容を取得
-    const movieTitleInput = document.getElementById("watchedMovieInput");
-    const movieTitle = movieTitleInput.value.trim();//trimで前後の空白削除
+    const movieTitle = document.getElementById("watchedMovieInput").value;
 
     //未入力チェック
     if (!movieTitle) isError = showErrorMessage("titleError", "映画タイトルを入力してください。");
+    //showErrorMessage(表示したい場所のid,エラーの内容);
 
-    //重複フラグ
-    const exists = watchedMoviesList.some(item => item.title === movieTitle);//someメソッドで重複チェック
-    //some(仮引数 => 条件式) 条件式を満たす要素が1つでもあればtrueを返す
+    //重複の確認
+    const exists = watchedMoviesList.some(item => item.title === movieTitle);
+    //someメソッドで重複チェック
+    //! some(仮引数 => 条件式) 条件式を満たす要素が1つでもあればtrueを返す
 
     //重複チェック
     if (exists) isError = showErrorMessage("titleError", "同じ映画タイトルが既に登録されています。");
+
 
 
     /*鑑賞日入力*/
@@ -40,11 +41,14 @@ document.getElementById("addWatchedMovieButton").addEventListener("click", funct
     const formattedDate = watchDateInput.replaceAll("-", "/");
 
 
+
     /*評価入力*/
     const ratingInput = document.getElementById("ratingInput").value;
     if (!ratingInput) {
         isError = showErrorMessage("ratingError", "評価を入力してください。");
     }
+
+
 
     /*レビュー入力*/
     const reviewInput = document.getElementById("reviewInput").value;
@@ -54,12 +58,12 @@ document.getElementById("addWatchedMovieButton").addEventListener("click", funct
 
 
 
-    //! エラーがある場合、処理を中断 !
+    //!! エラーがある場合、処理を中断 !!
     if (isError) return;
 
 
-
     //配列に映画の情報をオブジェクトとして追加
+    //一意の識別子を入力、１要素の削除に使用
     const ID = crypto.randomUUID()
 
     watchedMoviesList.push({
@@ -70,21 +74,20 @@ document.getElementById("addWatchedMovieButton").addEventListener("click", funct
         review: reviewInput
     });
 
-    console.log(watchedMoviesList);
+    console.log("現在の配列一覧", watchedMoviesList);
+    //( , ) , で引数を分けることで引数ごとに型を最適化して表示してくれる
+    //("コメント" + array) これだとstring型になって配列の中身を表示してくれない
 
-
-    /*dom操作、表示*/
+    /*dom操作・実際にhtmlに書き込む関数*/
     showingWatchedMovies();
-
 
 
     /*ローカルストレージに保存*/
     localStorage.setItem("watchedMovies", JSON.stringify(watchedMoviesList));
 
 
-
     /*最後に入力欄をクリア*/
-    movieTitleInput.value = "";
+    document.getElementById("watchedMovieInput").value = "";
     document.getElementById("watchDateInput").value = "";
     document.getElementById("ratingInput").value = "";
     document.getElementById("reviewInput").value = "";
@@ -95,8 +98,9 @@ document.getElementById("addWatchedMovieButton").addEventListener("click", funct
 
 /*起動時点の動作*/
 window.onload = function () {
+    //既にローカルストレージにデータが有るかの確認、ない場合は空から配列を代入
     watchedMoviesList = JSON.parse(localStorage.getItem("watchedMovies")) || [];
-    console.log(watchedMoviesList);
+    console.log("サイト復帰時の配列", watchedMoviesList);
 
     showingWatchedMovies();
 
