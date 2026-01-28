@@ -1,0 +1,158 @@
+/* padding/border も width に含める
+幅がはみ出す項目があるため */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+
+/* 全体のスタイル設定 */
+body {
+    background-color: white;
+    color: black;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 10px 10%;
+}
+
+/* ヘッダー部分 */
+header {
+    background-color: white;
+}
+
+header h1 {
+    margin: 20px 0;
+    padding: 0;
+    text-align: center;
+
+}
+
+
+
+p,
+h2 {
+    font-size: 1.2rem;
+
+    /*! 文字サイズ変更 !*/
+}
+
+
+ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+
+/*映画鑑賞記録アプリ全体のdivタグ*/
+/*映画情報を入力するdivタグ*/
+#formArea {
+    text-align: center;
+    /* ブロック自体を中央へ */
+    border: none;
+    border-radius: 12px;
+    background-color: rgb(255, 255, 255);
+    text-align: left;
+    padding: 10px 20px;
+    margin-bottom: 30px;
+
+}
+
+#formArea .inputArea {
+    width: 100%;
+    padding: 1%;
+}
+
+#formArea input,
+#formArea textarea {
+    width: 100%;
+    max-width: 100%;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 6px;
+    background-color: white;
+}
+
+#formArea button {
+    background-color: deepskyblue;
+    border: none;
+    border-radius: 6px;
+
+    padding: 10px 20px;
+    margin-bottom: 10px;
+
+    cursor: pointer;
+
+    font-size: 1.2rem;
+    /*ボタン内の文字サイズ変更*/
+
+    font-family: Arial, sans-serif;
+
+    font-weight: bold;
+
+
+}
+
+#formArea button:hover {
+    background-color: skyblue;
+    font-weight: normal;
+
+}
+
+
+
+
+/*jsであとから追加される要素*/
+/*１要素全体*/
+.aWatchedMovie {
+    position: relative;
+
+    border-radius: 12px;
+    padding: 1px 15px;
+    margin-bottom: 10px;
+
+}
+
+/*映画の情報の一つ*/
+.inputNord {
+    width: 100%;
+
+}
+
+.reviewParagraph {
+    white-space: pre-wrap;
+}
+
+.delBtn {
+    position: absolute;
+    right: 13px;
+    top: 15px;
+
+    padding: 50px 15px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    background-color: pink;
+    border: none;
+    border-radius: 13px;
+}
+
+.delBtn:hover {
+    background-color: rgb(255, 214, 221);
+    font-weight: normal;
+
+}
+
+/*エラーメッセージ*/
+.errorMessage {
+    color: red;
+    margin: 0;
+    padding: 0;
+    font-size: 0.9rem;
+}
+
+
+/*枠内の背景色変更*/
+#formArea,
+.aWatchedMovie {
+    background-color: rgb(236, 236, 236);
+}

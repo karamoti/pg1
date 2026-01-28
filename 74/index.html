@@ -2,51 +2,61 @@
 <html lang="ja">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="js/script.js" defer></script>
-    <link rel="stylesheet" href="css/style.css">
-
     <title>映画鑑賞記録サイト</title>
+    <meta charset="UTF-8">
+    <script src="script.js" defer></script>
+    <link rel="stylesheet" href="styles.css">
 </head>
 
-<nav id="nav-tag">
-    <p>映画鑑賞記録サイト</p>
-
-    <ul>
-        <li><a href="index.html">ホーム</a></li>
-        <li><a href=".html">映画鑑賞記録</a></li>
-        <li><a href=".html">記録追加</a></li>
-    </ul>
-</nav>
-
 <body>
+    <!-- ヘッダー -->
+    <header>
+        <h1>映画鑑賞記録サイト</h1>
+    </header>
 
-    <h1>映画鑑賞記録</h1>
+    <div id="formArea">
+        <h2>映画を追加</h2>
 
-    <h2>基本情報</h2>
+        <div id="titleArea" class="inputArea">
+            <label for="watchedMovieInput">映画タイトル:</label>
+            <input type="text" placeholder="映画のタイトルを入力" id="watchedMovieInput">
+            <div id="titleError" class="errorMessage">
+                <!--エラーメッセージ表示部分　<p>未入力確認。</p>　-->
+            </div>
+        </div>
 
-    <label>
-        映画タイトル
-        <input id="title">
-    </label>
+        <div class="inputArea">
+            <label for="watchDateInput">鑑賞日:</label>
+            <input type="date" id="watchDateInput" placeholder="鑑賞日を入力">
+            <div id="dateError" class="errorMessage"></div>
+        </div>
 
-    <label>
-        観た日付
-        <input type="date" id="date">
-    </label>
+        <div class="inputArea">
+            <label for="ratingInput">評価:</label>
+            <input type="number" placeholder="評価（1-5）" id="ratingInput" min="1" max="5">
+            <div id="ratingError" class="errorMessage"></div>
+        </div>
+
+        <div class="inputArea">
+            <label for="reviewInput">レビュー:</label>
+            <textarea id="reviewInput" placeholder="レビューを入力"></textarea>
+            <div id="reviewError" class="errorMessage"></div>
+        </div>
 
 
+        <button id="addWatchedMovieButton" class="inputArea">追加</button>
+
+    </div>
+
+    <div id="watchedMoviesListContainer">
+        <h2>映画一覧</h2>
+
+        <ul id="watchedMoviesList"></ul>
+
+        <p>もっと見た映画を追加しましょう！</p>
+    </div>
 
 
-    <h2>感想</h2>
-    <textarea id="review"></textarea>
-
-
-
-
-
-    <button id="register">登録あああああ</button>
 </body>
 
 </html>
