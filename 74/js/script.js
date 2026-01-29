@@ -103,8 +103,6 @@ window.onload = function () {
     console.log("サイト復帰時の配列", watchedMoviesList);
 
     showingWatchedMovies();
-
-
 }
 
 
@@ -118,6 +116,7 @@ function showingWatchedMovies() {
 
     //配列の中身を1つずつ表示
     watchedMoviesList.forEach(movie => {
+
 
         //li要素とその中身を作成
         const litag = document.createElement("li");
@@ -146,7 +145,6 @@ function showingWatchedMovies() {
         const review = document.createElement("p");
         review.textContent = `レビュー: \n${movie.review}`;
         review.className = "inputNord";
-        review.classList.add("reviewParagraph");
         litag.appendChild(review);
 
         //削除ボタン作成
@@ -160,11 +158,12 @@ function showingWatchedMovies() {
         watchedMoviesListElement.appendChild(litag);
 
         /*
-        <li class="watchedMovies">
-            <h3 class="inputNord">チェンソーマン</h3>
-            <p class="inputNord">鑑賞日: 2025/10/10</p>
+        <li class="watchedMovies" id="ID">
+            <h3 class="inputNord">チェンソーマン　レゼ篇</h3>
+            <p class="inputNord">鑑賞日: 2025/12/1</p>
             <p class="inputNord">評価: 5</p>
-            <p class="inputNord">レビュー: レゼに誘惑されるデンジが可愛かった。バトルシーンが原作から大幅に拡張されていて見応え抜群！</p>
+            <p class="inputNord">レビュー: \n バトルシーンが原作から大幅に拡張されていて見応え抜群！</p>
+            <button class="delBtn">削除</button>
         </li>
         */
     });
@@ -188,12 +187,11 @@ function showErrorMessage(ID, message) {
     errorMessage.className = "errorMessage";
     errorArea.appendChild(errorMessage);
 
-    //エラーが起こったことをコンソールに表示
+    //エラーが起こったことをコンソールに通知
     console.log(`! ID:${ID}で${message}`);
 
     //エラーフラグを立てておく
-    const hasError = true;
-    return hasError;
+    return true;
 }
 
 
@@ -209,14 +207,14 @@ document.getElementById("watchedMoviesList").addEventListener('click', (event) =
     const btn = event.target.closest('.delBtn');
     if (!btn) return; // 削除ボタン以外は無視
 
-
+    //.closestで一番近い親要素を取得
     const card = btn.closest('.aWatchedMovie');
     const delID = card.dataset.id;
 
     //指定したIDだけを除いた配列に上書き
     watchedMoviesList = watchedMoviesList.filter(item => item.ID !== delID);
 
-    console.log(watchedMoviesList);
+    console.log("削除後の配列", watchedMoviesList);
 
     /*ローカルストレージに保存*/
     localStorage.setItem("watchedMovies", JSON.stringify(watchedMoviesList));
